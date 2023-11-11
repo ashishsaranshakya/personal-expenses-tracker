@@ -11,4 +11,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    // fucntions to initialize the room database
+    private void initDB() {
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+        mDao = db.expenseDao();
+    }
 }
