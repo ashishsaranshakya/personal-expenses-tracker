@@ -3,7 +3,7 @@ import passport from "passport";
 export const googleLogin = (req, res, next) => {
     const isLoggedIn = req.isAuthenticated() && req.user;
     if (isLoggedIn) {
-        res.redirect('/dashboard');
+        res.redirect('/');
     }
     passport.authenticate('google', { scope: ['profile', 'email'] })(req, res, next);
 }
@@ -11,7 +11,7 @@ export const googleLogin = (req, res, next) => {
 export const googleCallback = (req, res, next) => {
     passport.authenticate('google', {
         failureRedirect: '/api/v1/auth/google',
-        successRedirect: '/dashboard',
+        successRedirect: '/',
         session: true,
     })(req, res, next);
 };
