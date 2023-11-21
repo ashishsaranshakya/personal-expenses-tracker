@@ -7,8 +7,7 @@ const UserSchema = mongoose.Schema({
     },
     provider_id: {
         type: String,
-        unique: true,
-        required: true
+        unique: true
     },
     email: {
         type: String,
@@ -22,6 +21,10 @@ const UserSchema = mongoose.Schema({
     profile_picture_url: {
         type: String
     },
+    balance: {
+        type: Number,
+        default: 0
+    }
 }, { timestamps: true });
 
 const User = mongoose.model('User', UserSchema);

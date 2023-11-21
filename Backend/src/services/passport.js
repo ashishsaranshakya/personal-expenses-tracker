@@ -2,6 +2,8 @@ import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import config from '../configs/config.js';
 import User from '../models/User.js';
+import ExpenseCategories from '../models/ExpenseCategories.js';
+import IncomeCategories from '../models/IncomeCategories.js';
 
 passport.serializeUser(function (user, done) {
     done(null, { id: user.id });
@@ -29,7 +31,17 @@ passport.use(new GoogleStrategy(
                 name: profile.displayName,
                 profile_picture_url: profile.photos[0].value
             });
-            await newUser.save();
+            const user = await newUser.save();
+            const expenseCategories = new ExpenseCategories({
+                userId: user.id,
+                categories: [{ name: "Misc" }]
+            });
+            const incomeCategories = new IncomeCategories({
+                userId: user.id,
+                categories: [{ name: "Misc" }]
+            });
+            await expenseCategories.save();
+            await incomeCategories.save();
             return cb(null, newUser);
         }
         cb(null, user);

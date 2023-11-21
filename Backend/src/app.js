@@ -5,6 +5,8 @@ import cookieSession from 'cookie-session';
 import passport from "passport";
 
 import authRoutes from './routes/auth.js';
+import expenseRoutes from './routes/expense.js';
+import incomeRoutes from './routes/income.js';
 import errorHandler from './middlewares/errorHandler.js';
 import routeNotFoundHandler from './middlewares/routeNotFoundHandler.js';
 import './services/passport.js';
@@ -31,11 +33,8 @@ const apiBaseUrl = `/api/${config.api_version}`;
 
 app.get(`${apiBaseUrl}`,(req, res) => res.status(200).json({success: true, message: 'Expense Tracker API'}))
 app.use(`${apiBaseUrl}/auth`, authRoutes);
-
-app.get('/test', (req, res) => {
-    console.log(req.user);
-    res.send('All Done');
-})
+app.use(`${apiBaseUrl}/expenses`, expenseRoutes);
+app.use(`${apiBaseUrl}/incomes`, incomeRoutes);
 
 app.use(routeNotFoundHandler);
 app.use(errorHandler);
