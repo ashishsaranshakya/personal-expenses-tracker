@@ -10,7 +10,9 @@ export const GlobalProvider = ({children}) => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [profile, setProfile] = useState(null);
     const [incomes, setIncomes] = useState([]);
+    const [incomeCategories, setIncomeCategories] = useState(null);
     const [expenses, setExpenses] = useState([]);
+    const [expenseCategories, setExpenseCategories] = useState(null);
     const [error, setError] = useState(null);
 
     //auth
@@ -20,10 +22,23 @@ export const GlobalProvider = ({children}) => {
                 if (res.data.success) {
                     setLoggedIn(true);
                     setProfile(res.data.user);
+                    getCategories();
                 }
             })
             .catch((err) => {
                 setError(err.response.data.error)
+            });
+    }
+
+    const updateBalance = async (balance) => {
+        await axios.put(`${BASE_URL}user`, {balance})
+            .then((res) => {
+                if (res.data.success) {
+                    setProfile({...profile, balance: res.data.balance});
+                }
+            })
+            .catch((err) => {
+                setError(err.response.data.error || err.response.data.errors)
             });
     }
 
@@ -46,26 +61,54 @@ export const GlobalProvider = ({children}) => {
             });
     }
 
-    //calculate incomes
-    const addIncome = async (income) => {
-        await axios.post(`${BASE_URL}incomes`, income)
+    //categories
+    const getCategories = async () => {
+        await axios.get(`${BASE_URL}user/categories`)
+            .then((res) => {
+                if (res.data.success) {
+                    setIncomeCategories(res.data.incomeCategories);
+                    setExpenseCategories(res.data.expenseCategories);
+                }
+            })
             .catch((err) => {
                 setError(err.response.data.error)
             });
-        getProfile();
-        getIncomes();
+    }
+
+    //calculate incomes
+    const addIncome = async (income) => {
+        await axios.post(`${BASE_URL}incomes`, income)
+            .then((res) => {
+                getProfile();
+                getIncomes();
+            })
+            .catch((err) => {
+                setError(err.response.data.error)
+            });
     }
 
     const getIncomes = async () => {
-        const response = await axios.get(`${BASE_URL}incomes`);
-        setIncomes(response.data.incomes);
-        console.log(response.data);
+        await axios.get(`${BASE_URL}incomes`)
+            .then((response) => {
+                const incomes = response.data.incomes.map((income) => {
+                    return { ...income, type: 'income' }
+                })
+                setIncomes(incomes);
+            })
+            .catch((err) => {
+                setError(err.response.data.error)
+            });
     }
 
     const deleteIncome = async (id) => {
-        await axios.delete(`${BASE_URL}incomes/${id}`);
-        getProfile();
-        getIncomes();
+        await axios.delete(`${BASE_URL}incomes/${id}`)
+            .then((res) => {
+                getProfile();
+                getIncomes();
+            })
+            .catch((err) => {
+                setError(err.response.data.error)
+            });
     }
 
     const totalIncome = () => {
@@ -81,23 +124,37 @@ export const GlobalProvider = ({children}) => {
     //calculate incomes
     const addExpense = async (expense) => {
         await axios.post(`${BASE_URL}expenses`, expense)
+            .then((res) => {
+                getProfile();
+                getExpenses();
+            })
             .catch((err) => {
                 setError(err.response.data.error)
             });
-        getProfile();
-        getExpenses();
     }
 
     const getExpenses = async () => {
-        const response = await axios.get(`${BASE_URL}expenses`)
-        setExpenses(response.data.expenses)
-        console.log(response.data)
+        await axios.get(`${BASE_URL}expenses`)
+            .then((response) => {
+                const expenses = response.data.expenses.map((expense) => {
+                    return {...expense, type: 'expense'}
+                })
+                setExpenses(expenses)
+            })
+            .catch((err) => {
+                setError(err.response.data.error)
+            });
     }
 
     const deleteExpense = async (id) => {
-        await axios.delete(`${BASE_URL}expenses/${id}`);
-        getProfile();
-        getExpenses()
+        await axios.delete(`${BASE_URL}expenses/${id}`)
+            .then((res) => {
+                getProfile();
+                getExpenses();
+            })
+            .catch((err) => {
+                setError(err.response.data.error)
+            });
     }
 
     const totalExpenses = () => {
@@ -114,13 +171,15 @@ export const GlobalProvider = ({children}) => {
         return totalIncome() - totalExpenses()
     }
 
-    const transactionHistory = () => {
+    const transactionHistory = (limit) => {
         const history = [...incomes, ...expenses]
         history.sort((a, b) => {
             return new Date(b.date) - new Date(a.date)
         })
-
-        return history.slice(0, 3) //TODO change this, dont know what this does
+        if (limit) {
+            return history.slice(0, limit)
+        }
+        return history;
     }
 
 
@@ -129,8 +188,11 @@ export const GlobalProvider = ({children}) => {
             profile,
             loggedIn,
             getProfile,
+            updateBalance,
             login,
             logout,
+            incomeCategories,
+            expenseCategories,
             addIncome,
             getIncomes,
             incomes,

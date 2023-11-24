@@ -1,13 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { logout, login } from '../../assets/Icons'
+import { logout, login, edit, tick, cross } from '../../assets/Icons'
 import { menuItems } from './menuItems'
 import { useGlobalContext } from '../../context/globalContext'
 
 function Navigation({ active, setActive }) {
     
     const globalContext = useGlobalContext();
+    const [balance, setBalance] = useState(0);
+    const [editBalance, setEditBalance] = useState(false);
+
+    const balanceHandler = () => {
+        if(balance!==globalContext.profile.balance)
+            globalContext.updateBalance(balance);
+        setEditBalance(false);
+    }
+
+    useEffect(() => {
+        if(globalContext.profile)
+            setBalance(globalContext.profile.balance);
+    }, [globalContext.profile]);
     
     return (
         <NavStyled>
@@ -16,8 +29,22 @@ function Navigation({ active, setActive }) {
                     <div className="user-con">
                         <img src={globalContext.profile.profile_picture_url} alt="" />
                         <div className="text">
-                            <h2>{globalContext.profile.name}</h2>
-                            <p>Balance: {globalContext.profile.balance}/-</p>
+                            <h3>{globalContext.profile.name}</h3>
+                            {editBalance ?
+                                (
+                                    <BalanceDiv>
+                                        Balance: <input type="number" value={balance} onChange={(e)=>setBalance(e.target.value)} />
+                                        <EditButton onClick={balanceHandler}>{tick}</EditButton>
+                                        <EditButton onClick={() => setEditBalance(false)}>{cross}</EditButton>
+                                    </BalanceDiv>
+                                ) :
+                                (
+                                    <BalanceDiv>
+                                        Balance: {globalContext.profile.balance}/-
+                                        <EditButton onClick={() => setEditBalance(true)}>{edit}</EditButton>
+                                    </BalanceDiv>
+                                )
+                            }
                         </div>
                     </div>
                 ) :
@@ -79,6 +106,45 @@ function Navigation({ active, setActive }) {
     )
 }
 
+const EditButton = styled.div`
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0px 1px 17px rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+    &:hover{
+        background: #FFFFFF;
+        border: 2px solid #FFFFFF;
+        box-shadow: 0px 1px 17px rgba(0, 0, 0, 0.06);
+        transform: scale(1.1);
+    }
+`;
+
+const BalanceDiv = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    input{
+        width: 80px;
+        height: 30px;
+        border-radius: 10px;
+        border: 4px solid #FFFFFF;
+        background: rgba(252, 246, 249, 0.78);
+        backdrop-filter: blur(4.5px);
+        padding: 0 0.2rem;
+        color: rgba(34, 34, 96, 1);
+        font-size: 1.2rem;
+        outline: none;
+    }
+`;
+
 const BottomNav = styled.div`
     display: flex;
     align-items: center;
@@ -98,7 +164,7 @@ const LinkStyled = styled(Link)`
 
 const NavStyled = styled.nav`
     padding: 2rem 1.5rem;
-    width: 374px;
+    width: 30%;
     height: 100%;
     background: rgba(252, 246, 249, 0.78);
     border: 3px solid #FFFFFF;
@@ -107,7 +173,7 @@ const NavStyled = styled.nav`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 1rem;
     .user-con{
         height: 100px;
         display: flex;
@@ -123,7 +189,7 @@ const NavStyled = styled.nav`
             padding: .2rem;
             box-shadow: 0px 1px 17px rgba(0, 0, 0, 0.06);
         }
-        h2{
+        h3{
             color: rgba(34, 34, 96, 1);
         }
         p{

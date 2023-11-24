@@ -4,13 +4,32 @@ import { useGlobalContext } from './context/globalContext';
 import styled from 'styled-components';
 import { MainLayout } from './styles/Layouts';
 import Navigation from './Components/NavigationMenu/Navigation';
-
+import Dashboard from './Components/Dashboard';
+import Income from './Components/Income/Income';
+import Expense from './Components/Expense/Expense';
 
 function App() {
   const [active, setActive] = useState(1);
   const globalContext = useGlobalContext();
 
   useEffect(() => {
+    switch (window.location.pathname) {
+      case '/':
+        setActive(1);
+        break;
+      case '/transactions':
+        setActive(2);
+        break;
+      case '/incomes':
+        setActive(3);
+        break;
+      case '/expenses':
+        setActive(4);
+        break;
+      default:
+        setActive(1);
+        break;
+    }
     globalContext.getProfile();
   }, []);
 
@@ -20,10 +39,10 @@ function App() {
         <Router>
           <Navigation active={active} setActive={setActive} />
           <Routes>
-            <Route path="/" element={<h1>Home</h1>} />
+            <Route path="/" element={<Dashboard/>} />
             <Route path="/transactions" element={<h1>Transactions</h1>} />
-            <Route path="/incomes" element={<h1>Incomes</h1>} />
-            <Route path="/expenses" element={<h1>Expenses</h1>} />
+            <Route path="/incomes" element={<Income/>} />
+            <Route path="/expenses" element={<Expense/>} />
           </Routes>
         </Router>
       </MainLayout>
