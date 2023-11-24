@@ -9,7 +9,7 @@ export const expenseValidator = [
 
 export const updateExpenseValidator = [
     body('amount').optional().isNumeric().withMessage('Amount must be a number'),
-    body('date').optional().isDate().withMessage('Date must be a valid date'),
+    body('date').optional().isISO8601().withMessage('Date must be a valid date'),
     body('categoryId').optional().notEmpty().withMessage('Category must be specified'),
     body('description').optional().isLength({ max: 50 }).withMessage('Description cannot be more than 50 characters long'),
 ];

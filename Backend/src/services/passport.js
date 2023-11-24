@@ -21,7 +21,6 @@ passport.use(new GoogleStrategy(
         callbackURL: `${config.baseUrl}/api/${config.api_version}/auth/google/callback`
     },
     async function (accessToken, refreshToken, profile, cb) {
-        console.log(profile)
         const user = await User.findOne({ provider: 'google', provider_id: profile.id });
         if (!user) {
             const newUser = new User({

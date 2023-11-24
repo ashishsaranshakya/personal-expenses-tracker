@@ -42,7 +42,7 @@ export const createExpense = async (req, res, next) => {
 
 export const getExpenses = async (req, res, next) => {
     try {
-        const expenses = await Expense.find({ userId: req.user.id }, null, { sort: { date: 1 } });
+        const expenses = await Expense.find({ userId: req.user.id }, null, { sort: { date: -1 } });
         const { categories } = await ExpenseCategories.findOne({ userId: req.user.id });
         const expensesWithCategory = expenses.map(expense => {
             const category = categories.find(category => category.id === expense.categoryId.toString());
@@ -80,10 +80,12 @@ export const updateExpense = async (req, res, next) => {
         const { id } = req.params;
         const expense = await Expense.findById(id);
         if (!expense) return next(createAPIError(404, false, "Expense not found"));
-        console.log(expense.userId, req.user.id)
         if (expense.userId.toString() !== req.user.id) return next(createAPIError(403, false, "Unauthorized"));
 
+        const user = await User.findById(req.user.id);
         const { amount, date, categoryId, description } = req.body;
+        user.balance += expense.amount;
+        user.balance -= amount;
 
         if (amount) expense.amount = amount;
         if (date) expense.date = date;
@@ -95,6 +97,7 @@ export const updateExpense = async (req, res, next) => {
         }
         if (description) expense.description = description;
 
+        await user.save();
         await expense.save();
 
         res.json({success: true, message: "Expense updated successfully."});

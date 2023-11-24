@@ -42,7 +42,7 @@ export const createIncome = async (req, res, next) => {
 
 export const getIncomes = async (req, res, next) => {
     try {
-        const incomes = await Income.find({ userId: req.user.id }, null, { sort: { date: 1 } });
+        const incomes = await Income.find({ userId: req.user.id }, null, { sort: { date: -1 } });
         const { categories } = await IncomeCategories.findOne({ userId: req.user.id });
         const incomesWithCategory = incomes.map(income => {
             const category = categories.find(category => category.id === income.categoryId.toString());
@@ -80,10 +80,12 @@ export const updateIncome = async (req, res, next) => {
         const { id } = req.params;
         const income = await Income.findById(id);
         if (!income) return next(createAPIError(404, false, "Income not found"));
-        console.log(income.userId, req.user.id)
         if (income.userId.toString() !== req.user.id) return next(createAPIError(403, false, "Unauthorized"));
 
+        const user = await User.findById(req.user.id);
         const { amount, date, categoryId, description } = req.body;
+        user.balance -= income.amount;
+        user.balance += Number(amount);
 
         if (amount) income.amount = amount;
         if (date) income.date = date;
@@ -95,6 +97,7 @@ export const updateIncome = async (req, res, next) => {
         }
         if (description) income.description = description;
 
+        await user.save();
         await income.save();
 
         res.json({success: true, message: "Income updated successfully."});
