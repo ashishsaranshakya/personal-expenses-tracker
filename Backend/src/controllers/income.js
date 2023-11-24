@@ -11,7 +11,8 @@ export const createIncome = async (req, res, next) => {
             return next(createAPIError(400, false, "", errors.array()));
         }
 
-        const { amount, date, categoryId, description } = req.body;
+        const { amount, date, category: categoryId, description } = req.body;
+        if(amount <= 0) return next(createAPIError(400, false, "Amount invalid"));
 
         const categories = await IncomeCategories.findOne({ userId: req.user.id });
         const category = categories.categories.find(category => category.id === categoryId);
@@ -26,7 +27,7 @@ export const createIncome = async (req, res, next) => {
         });
         
         const user = await User.findById(req.user.id);
-        user.balance += amount;
+        user.balance += Number(amount);
 
         await newIncome.save();
         await user.save();
@@ -41,8 +42,13 @@ export const createIncome = async (req, res, next) => {
 
 export const getIncomes = async (req, res, next) => {
     try {
-        const incomes = await Income.find({ userId: req.user.id });
-        res.status(200).json({ success: true, incomes });
+        const incomes = await Income.find({ userId: req.user.id }, null, { sort: { date: 1 } });
+        const { categories } = await IncomeCategories.findOne({ userId: req.user.id });
+        const incomesWithCategory = incomes.map(income => {
+            const category = categories.find(category => category.id === income.categoryId.toString());
+            return { ...income._doc, category: category.name };
+        });
+        res.status(200).json({ success: true, incomes: incomesWithCategory });
     }
     catch (error) {
         console.log(error)

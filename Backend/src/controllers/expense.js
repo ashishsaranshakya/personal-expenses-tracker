@@ -11,7 +11,8 @@ export const createExpense = async (req, res, next) => {
             return next(createAPIError(400, false, "", errors.array()));
         }
 
-        const { amount, date, categoryId, description, paymentMethod } = req.body;
+        const { amount, date, category: categoryId, description } = req.body;
+        if(amount <= 0) return next(createAPIError(400, false, "Amount invalid"));
 
         const categories = await ExpenseCategories.findOne({ userId: req.user.id });
         const category = categories.categories.find(category => category.id === categoryId);
@@ -22,8 +23,7 @@ export const createExpense = async (req, res, next) => {
             amount,
             date,
             categoryId,
-            description,
-            paymentMethod
+            description
         });
         
         const user = await User.findById(req.user.id);
@@ -42,8 +42,13 @@ export const createExpense = async (req, res, next) => {
 
 export const getExpenses = async (req, res, next) => {
     try {
-        const expenses = await Expense.find({ userId: req.user.id });
-        res.status(200).json({ success: true, expenses });
+        const expenses = await Expense.find({ userId: req.user.id }, null, { sort: { date: 1 } });
+        const { categories } = await ExpenseCategories.findOne({ userId: req.user.id });
+        const expensesWithCategory = expenses.map(expense => {
+            const category = categories.find(category => category.id === expense.categoryId.toString());
+            return { ...expense._doc, category: category.name };
+        });
+        res.status(200).json({ success: true, expenses: expensesWithCategory });
     }
     catch (error) {
         console.log(error)
@@ -78,7 +83,7 @@ export const updateExpense = async (req, res, next) => {
         console.log(expense.userId, req.user.id)
         if (expense.userId.toString() !== req.user.id) return next(createAPIError(403, false, "Unauthorized"));
 
-        const { amount, date, categoryId, description, paymentMethod } = req.body;
+        const { amount, date, categoryId, description } = req.body;
 
         if (amount) expense.amount = amount;
         if (date) expense.date = date;
@@ -89,7 +94,6 @@ export const updateExpense = async (req, res, next) => {
             expense.categoryId = categoryId;
         }
         if (description) expense.description = description;
-        if (paymentMethod) expense.paymentMethod = paymentMethod;
 
         await expense.save();
 

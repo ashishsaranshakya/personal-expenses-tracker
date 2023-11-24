@@ -20,10 +20,8 @@ const ExpenseSchema = new mongoose.Schema(
             required: true
         },
         description: {
-            type: String
-        },
-        paymentMethod: {
-            type: String
+            type: String,
+            default: ''
         }
     },
     { timestamps: true });
