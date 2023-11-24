@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import googleOauthConfig from "/etc/secrets/googleOauthConfig.json" assert { type: "json" };
+import fs from 'fs';
+//import googleOauthConfig from "./googleOauthConfig.json" assert { type: "json" };
+const googleOauthConfig = JSON.parse(fs.readFileSync('/etc/secrets/googleOauthConfig.json').toString())
 
 export default {
     baseUrl: process.env.BASE_URL,
