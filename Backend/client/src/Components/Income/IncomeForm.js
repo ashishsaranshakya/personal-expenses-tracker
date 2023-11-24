@@ -40,6 +40,7 @@ function Form() {
                 <input value={amount}  
                     type="number" 
                     name={'amount'} 
+                    autoComplete="off"
                     placeholder={'Income Amount'}
                     onChange={handleInput('amount')} 
                 />
@@ -50,6 +51,7 @@ function Form() {
                     showTimeSelect
                     placeholderText='Enter A Date'
                     selected={date}
+                    autoComplete="off"
                     timeFormat="hh:mm aa"
                     timeIntervals={15}
                     dateFormat="dd/MM/yyyy hh:mm aa"

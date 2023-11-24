@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { useGlobalContext } from '../context/globalContext';
+import { useGlobalContext } from '../../context/globalContext';
 import History from './History';
-import { InnerLayout } from '../styles/Layouts';
+import { InnerLayout } from '../../styles/Layouts';
 import Chart from './Chart';
 
 function Dashboard() {

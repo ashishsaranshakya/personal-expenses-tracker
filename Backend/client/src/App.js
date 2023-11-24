@@ -4,7 +4,7 @@ import { useGlobalContext } from './context/globalContext';
 import styled from 'styled-components';
 import { MainLayout } from './styles/Layouts';
 import Navigation from './Components/NavigationMenu/Navigation';
-import Dashboard from './Components/Dashboard';
+import Dashboard from './Components/Dashboard/Dashboard';
 import Income from './Components/Income/Income';
 import Expense from './Components/Expense/Expense';
 
