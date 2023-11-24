@@ -87,7 +87,7 @@ export const ItemStyled = styled.div`
             .details {
                 width: 100%;
                 display: grid;
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
                 grid-template-rows: repeat(2, auto);
                 gap: 0 1rem;
                 .text-1 {
@@ -95,11 +95,11 @@ export const ItemStyled = styled.div`
                     grid-row: 1 / 2;
                 }
                 .text-2 {
-                    grid-column: 2 / span 2;
+                    grid-column: 2 / 3;
                     grid-row: 1 / 2;
                 }
                 .text-3 {
-                    grid-column: 1 / span 3;
+                    grid-column: 1 / span 2;
                     grid-row: 2 / 3;
                 }
             }

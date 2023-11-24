@@ -30,13 +30,15 @@ ChartJs.register(
 function Chart() {
     const { incomes, expenses } = useGlobalContext();
     
-    const [activeTab, setActiveTab] = useState('income'); // State to manage active tab
+    const [activeTab, setActiveTab] = useState('income');
+    const reversedIncomes = [...incomes].reverse();
+    const reversedExpenses = [...expenses].reverse();
 
     const data = {
         datasets: [
             {
                 label: 'Income',
-                data: incomes.map((income) => ({
+                data: reversedIncomes.map((income) => ({
                     x: dateFormat(income.date),
                     y: income.amount
                 })),
@@ -45,7 +47,7 @@ function Chart() {
             },
             {
                 label: 'Expense',
-                data: expenses.map((expense) => ({
+                data: reversedExpenses.map((expense) => ({
                     x: dateFormat(expense.date),
                     y: expense.amount
                 })),
@@ -56,8 +58,13 @@ function Chart() {
     };
 
     const options = {
-        responsive: true
-      }
+        responsive: true,
+        scales: {
+            y: {
+                min: 0
+            }
+        }
+    }
 
     return (
         <ChartStyled>

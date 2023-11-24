@@ -7,6 +7,7 @@ import Navigation from './Components/NavigationMenu/Navigation';
 import Dashboard from './Components/Dashboard/Dashboard';
 import Income from './Components/Income/Income';
 import Expense from './Components/Expense/Expense';
+import Transactions from './Components/Transactions/Transactions';
 
 function App() {
   const [active, setActive] = useState(1);
@@ -40,7 +41,7 @@ function App() {
           <Navigation active={active} setActive={setActive} />
           <Routes>
             <Route path="/" element={<Dashboard/>} />
-            <Route path="/transactions" element={<h1>Transactions</h1>} />
+            <Route path="/transactions" element={<Transactions/>} />
             <Route path="/incomes" element={<Income/>} />
             <Route path="/expenses" element={<Expense/>} />
           </Routes>

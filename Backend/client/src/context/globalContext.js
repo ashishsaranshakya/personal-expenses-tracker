@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import axios from 'axios';
 
 const BASE_URL = "http://localhost:3000/api/v1/";
@@ -15,7 +15,7 @@ export const GlobalProvider = ({children}) => {
     const [expenseCategories, setExpenseCategories] = useState(null);
     const [error, setError] = useState(null);
 
-    //auth
+    // auth
     const getProfile = async () => {
         await axios.get(`${BASE_URL}user`)
             .then((res) => {
@@ -61,7 +61,7 @@ export const GlobalProvider = ({children}) => {
             });
     }
 
-    //categories
+    // categories
     const getCategories = async () => {
         await axios.get(`${BASE_URL}user/categories`)
             .then((res) => {
@@ -75,7 +75,7 @@ export const GlobalProvider = ({children}) => {
             });
     }
 
-    //calculate incomes
+    // calculate incomes
     const addIncome = async (income) => {
         await axios.post(`${BASE_URL}incomes`, income)
             .then((res) => {
@@ -121,7 +121,7 @@ export const GlobalProvider = ({children}) => {
     }
 
 
-    //calculate incomes
+    // calculate expenses
     const addExpense = async (expense) => {
         await axios.post(`${BASE_URL}expenses`, expense)
             .then((res) => {
@@ -172,16 +172,48 @@ export const GlobalProvider = ({children}) => {
     }
 
     const transactionHistory = (limit) => {
-        const history = [...incomes, ...expenses]
-        history.sort((a, b) => {
+        const tempHistory = [...incomes, ...expenses]
+        tempHistory.sort((a, b) => {
             return new Date(b.date) - new Date(a.date)
         })
+
         if (limit) {
-            return history.slice(0, limit)
+            return tempHistory.slice(0, limit)
         }
-        return history;
+        return tempHistory;
     }
 
+    // update item
+    const updateItem = async (id, data, type) => {
+        if (type === 'expense') {
+            updateExpense(id, data)
+        }
+        else {
+            updateIncome(id, data)
+        }
+    }
+
+    const updateExpense = async (id, data) => {
+        await axios.put(`${BASE_URL}expenses/${id}`, data)
+            .then((res) => {
+                getProfile();
+                getExpenses();
+            })
+            .catch((err) => {
+                setError(err.response.data.error)
+            });
+    }
+
+    const updateIncome = async (id, data) => {
+        await axios.put(`${BASE_URL}incomes/${id}`, data)
+            .then((res) => {
+                getProfile();
+                getIncomes();
+            })
+            .catch((err) => {
+                setError(err.response.data.error)
+            });
+    }
 
     return (
         <GlobalContext.Provider value={{
@@ -205,6 +237,7 @@ export const GlobalProvider = ({children}) => {
             totalExpenses,
             totalBalance,
             transactionHistory,
+            updateItem,
             error,
             setError
         }}>
