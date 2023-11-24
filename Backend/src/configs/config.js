@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import googleOauthConfig from "./googleOauthConfig.json" assert { type: "json" };
+import googleOauthConfig from "/etc/secrets/googleOauthConfig.json" assert { type: "json" };
 
 export default {
     baseUrl: process.env.BASE_URL,
