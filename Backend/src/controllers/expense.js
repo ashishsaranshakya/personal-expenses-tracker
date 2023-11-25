@@ -114,7 +114,10 @@ export const deleteExpense = async (req, res, next) => {
         const expense = await Expense.findById(id);
         if (!expense) return next(createAPIError(404, false, "Expense not found"));
         if (expense.userId.toString() !== req.user.id) return next(createAPIError(403, false, "Unauthorized"));
+        const user = await User.findById(req.user.id);
+        user.balance += expense.amount;
 
+        await user.save();
         await expense.deleteOne();
         res.json({ success: true, message: "Expense deleted successfully." });
     }

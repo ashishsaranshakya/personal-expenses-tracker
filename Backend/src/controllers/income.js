@@ -114,7 +114,10 @@ export const deleteIncome = async (req, res, next) => {
         const income = await Income.findById(id);
         if (!income) return next(createAPIError(404, false, "Expense not found"));
         if (income.userId.toString() !== req.user.id) return next(createAPIError(403, false, "Unauthorized"));
+        const user = await User.findById(req.user.id);
+        user.balance -= income.amount;
 
+        await user.save();
         await income.deleteOne();
         res.json({ success: true, message: "Income deleted successfully." });
     }
