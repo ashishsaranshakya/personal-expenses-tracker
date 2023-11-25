@@ -75,6 +75,48 @@ export const GlobalProvider = ({children}) => {
             });
     }
 
+    const deleteCategory = async (id, type) => {
+        if (type === 'expense') {
+            await axios.delete(`${BASE_URL}user/categories/expense/${id}`)
+                .then((res) => {
+                    getCategories();
+                })
+                .catch((err) => {
+                    setError(err.response.data.error)
+                });
+        }
+        else {
+            await axios.delete(`${BASE_URL}user/categories/income/${id}`)
+                .then((res) => {
+                    getCategories();
+                })
+                .catch((err) => {
+                    setError(err.response.data.error)
+                });
+        }
+    }
+
+    const addCategory = async (category, type) => {
+        if (type === 'expense') {
+            await axios.post(`${BASE_URL}user/categories/expense`, { name: category })
+                .then((res) => {
+                    getCategories();
+                })
+                .catch((err) => {
+                    setError(err.response.data.error)
+                });
+        }
+        else {
+            await axios.post(`${BASE_URL}user/categories/income`, { name: category })
+                .then((res) => {
+                    getCategories();
+                })
+                .catch((err) => {
+                    setError(err.response.data.error)
+                });
+        }
+    }
+
     // calculate incomes
     const addIncome = async (income) => {
         await axios.post(`${BASE_URL}incomes`, income)
@@ -225,6 +267,8 @@ export const GlobalProvider = ({children}) => {
             logout,
             incomeCategories,
             expenseCategories,
+            deleteCategory,
+            addCategory,
             addIncome,
             getIncomes,
             incomes,

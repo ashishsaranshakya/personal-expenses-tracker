@@ -29,6 +29,21 @@ export const Board = styled.div`
             flex: 1;
         }
     }
+    .chart-con{
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        width: 100%;
+        position: relative;
+    }
+    .chart-con > button {
+        position: absolute;
+        bottom: -4rem;
+        left: 0;
+    }
+    .form-container{
+        width: 50%;
+    }
 `;
 
 export const ItemStyled = styled.div`
@@ -151,5 +166,19 @@ export const FormStyled = styled.form`
                 background: var(--color-green) !important;
             }
         }
+    }
+    .btn{
+        button{
+            box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
+            &:hover{
+                background: var(--color-green) !important;
+            }
+        }
+    }
+    .bottom{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
     }
 `;

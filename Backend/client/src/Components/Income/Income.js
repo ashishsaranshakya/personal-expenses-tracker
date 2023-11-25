@@ -1,16 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../context/globalContext';
 import { InnerLayout } from '../../styles/Layouts';
 import Form from './IncomeForm';
 import IncomeItem from './IncomeItem';
 import { Board } from '../../styles/Board'
+import { plus } from '../../assets/Icons';
+import Button from '../Button';
+import Chart from './Chart';
 
 function Income() {
     const { incomes, getIncomes, deleteIncome, totalIncome, incomeCategories } = useGlobalContext();
 
-    useEffect(() =>{
+    const [formEnabled, setFormEnabled] = useState(false);
+    useEffect(() => {
         getIncomes()
-    }, [])
+    }, []);
+
     return (
         <Board>
             <InnerLayout>
@@ -18,7 +23,29 @@ function Income() {
                 <h2 className="total-income">Total Income: <span>₹ {totalIncome()}</span></h2>
                 <div className="income-content">
                     <div className="form-container">
-                        { incomeCategories && <Form /> }
+                        {formEnabled ?
+                                <>
+                                    <div className='form-con'>
+                                        {incomeCategories && <Form cancelHandler={() => setFormEnabled(false)} />}
+                                    </div>
+                                </>
+                            :
+                                <>
+                                    <div className='chart-con'>
+                                        <Chart />
+                                        <Button
+                                            icon={plus}
+                                            bPad={'1rem'}
+                                            bRad={'50%'}
+                                            bg={'var(--primary-color'}
+                                            color={'#fff'}
+                                            iColor={'#fff'}
+                                            hColor={'var(--color-green)'}
+                                            onClick={() => setFormEnabled(true)}
+                                        />
+                                    </div>
+                                </>
+                        }
                     </div>
                     <div className="incomes">
                         {incomes.map((income) => {

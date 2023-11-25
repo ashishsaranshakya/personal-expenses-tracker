@@ -11,3 +11,4 @@ export const bill = <i class="fa-solid fa-money-bill"></i>
 export const trash = <i class="fa-solid fa-trash"></i>
 export const calender = <i class="fa-solid fa-calendar"></i>
 export const category = <i class="fa-solid fa-grip"></i>
+export const plus = <i class="fa-solid fa-plus"></i>

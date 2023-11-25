@@ -8,6 +8,7 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import Income from './Components/Income/Income';
 import Expense from './Components/Expense/Expense';
 import Transactions from './Components/Transactions/Transactions';
+import Categories from './Components/Categories/Categories';
 
 function App() {
   const [active, setActive] = useState(1);
@@ -27,6 +28,9 @@ function App() {
       case '/expenses':
         setActive(4);
         break;
+      case '/categories':
+        setActive(5);
+        break;
       default:
         setActive(1);
         break;
@@ -44,6 +48,7 @@ function App() {
             <Route path="/transactions" element={<Transactions/>} />
             <Route path="/incomes" element={<Income/>} />
             <Route path="/expenses" element={<Expense/>} />
+            <Route path="/categories" element={<Categories/>} />
           </Routes>
         </Router>
       </MainLayout>

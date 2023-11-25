@@ -3,10 +3,10 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { useGlobalContext } from '../../context/globalContext';
 import Button from '../Button';
-import { tick as plus } from '../../assets/Icons';
+import { tick as plus, cross } from '../../assets/Icons';
 import { FormStyled } from '../../styles/Board';
 
-function Form() {
+function Form({cancelHandler}) {
     const {addIncome, error, setError, incomeCategories} = useGlobalContext()
     const [inputState, setInputState] = useState({
         amount: null,
@@ -30,7 +30,8 @@ function Form() {
             date: null,
             category: incomeCategories.categories[0]._id.toString(),
             description: '',
-        })
+        });
+        cancelHandler();
     }
 
     return (
@@ -71,15 +72,30 @@ function Form() {
             <div className="input-control">
                 <textarea name="description" value={description} placeholder='Add A Description' id="description" cols="30" rows="2" onChange={handleInput('description')}></textarea>
             </div>
-            <div className="submit-btn">
-                <Button 
-                    name={'Add Income'}
-                    icon={plus}
-                    bPad={'.8rem 1.6rem'}
-                    bRad={'30px'}
-                    bg={'var(--color-accent'}
-                    color={'#fff'}
-                />
+            <div className='bottom'>
+                <div className="submit-btn">
+                    <Button 
+                        name={'Add Income'}
+                        icon={plus}
+                        bPad={'.8rem 1.6rem'}
+                        bRad={'30px'}
+                        bg={'var(--color-accent'}
+                        color={'#fff'}
+                    />
+                </div>
+                <div className="btn">
+                    <Button
+                        name={'Cancel'}
+                        icon={cross}
+                        bPad={'.8rem 1.6rem'}
+                        bRad={'30px'}
+                        bg={'var(--primary-color'}
+                        color={'#fff'}
+                        iColor={'#fff'}
+                        hColor={'var(--color-green)'}
+                        onClick={cancelHandler}
+                    />
+                </div>
             </div>
         </FormStyled>
     )

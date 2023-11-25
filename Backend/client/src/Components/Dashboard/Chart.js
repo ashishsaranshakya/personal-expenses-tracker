@@ -7,7 +7,6 @@ import {
     LineElement,
     Title,
     Tooltip,
-    Legend,
     ArcElement,
 } from 'chart.js';
 
@@ -23,7 +22,6 @@ ChartJs.register(
     LineElement,
     Title,
     Tooltip,
-    Legend,
     ArcElement,
 )
 
@@ -62,6 +60,11 @@ function Chart() {
         scales: {
             y: {
                 min: 0
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
             }
         }
     }
@@ -117,8 +120,8 @@ const TabButton = styled.button`
 `;
 
 const ChartWrapper = styled.div`
-    /* Additional styling for chart wrapper if needed */
-    //padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 `;
 
 export default Chart
