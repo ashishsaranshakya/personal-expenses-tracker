@@ -1,7 +1,5 @@
 # Personal Expense Tracker
 
-<!--![Expense Tracker](expense_tracker.png)-->
-
 The Personal Expense Tracker repository contains an Android application and a web version developed using the MERN stack, aimed at helping users track and manage their daily expenses effectively.
 
 ## Features
@@ -26,13 +24,21 @@ The website version of the Expense Tracker will be developed using the MERN stac
 
 Deployed at: https://expense-tracker-s3d7.onrender.com
 
-<!--p align="center">
-  <img alt="Light" src="https://github.com/ashishsaranshakya/Articles-Collection/assets/74979286/a397c0e3-3a42-4ddf-88ad-5912cf86a9de" width="45%">
-&nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="Dark" src="https://github.com/ashishsaranshakya/Articles-Collection/assets/74979286/a397c0e3-3a42-4ddf-88ad-5912cf86a9de" width="45%">
-</p-->
-
-<!--![Web App](web_app.png)-->
+<p align="center">
+  <img alt="Light" src="/docs/webDashboard.png" width="45%">
+  <img alt="Dark" src="/docs/webTransactions.png" width="45%">
+</p>
+<p align="center">
+  <em>Dashboard</em> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <em>Transactions</em>
+</p>
+<br/>
+<p align="center">
+  <img alt="Dark" src="/docs/webIncomes.png" width="45%">
+  <img alt="Light" src="/docs/webExpenses.png" width="45%">
+</p>
+<p align="center">
+  <em>Incomes</em> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <em>Expenses</em>
+</p>
 
 ## Installation
 
