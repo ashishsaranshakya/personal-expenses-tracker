@@ -83,7 +83,7 @@ function Chart() {
             )}
             {activeTab === 'expense' && (
                 <ChartWrapper>
-                    <Line data={{...data, datasets: [data.datasets[1]]}} />
+                    <Line data={{...data, datasets: [data.datasets[1]]}} options={options} />
                 </ChartWrapper>
             )}
         </ChartStyled>
