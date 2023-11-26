@@ -40,7 +40,7 @@ app.use(passport.session());
 export const baseUrl = config.baseUrl;
 
 /* ROUTES */
-app.use(express.static('client/build'));
+app.use(express.static('client/dist'));
 const apiBaseUrl = `/api/${config.api_version}`;
 
 app.get(`${apiBaseUrl}`,(req, res) => res.status(200).json({success: true, message: 'Expense Tracker API'}))
@@ -49,7 +49,7 @@ app.use(`${apiBaseUrl}/expenses`, expenseRoutes);
 app.use(`${apiBaseUrl}/incomes`, incomeRoutes);
 app.use(`${apiBaseUrl}/user`, userRoutes);
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve('client', 'build', 'index.html'));
+    res.sendFile(path.resolve('client', 'dist', 'index.html'));
 });
 
 app.use(routeNotFoundHandler);
