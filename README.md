@@ -22,7 +22,7 @@ The Android version of the Expense Tracker is built using Java, Kotlin and Andro
 
 The website version of the Expense Tracker will be developed using the MERN stack (MongoDB, Express.js, React.js, and Node.js). It will provide the same features as the Android app but will be accessible from any modern web browser. The web app will communicate with the same backend server as the Android app.
 
-Deployed at: https://expense-tracker-s3d7.onrender.com
+Deployed at: https://expense-tracker.ashishsaranshakya.com
 
 <p align="center">
   <img alt="Light" src="/docs/webDashboard.png" width="45%">
