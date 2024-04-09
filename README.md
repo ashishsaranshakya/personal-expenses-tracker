@@ -1,6 +1,6 @@
 # Personal Expense Tracker
 
-The Personal Expense Tracker repository contains an Android application and a web version developed using the MERN stack, aimed at helping users track and manage their daily expenses effectively.
+The Personal Expense Tracker repository contains an full stack web application developed using the MERN Stack, aimed at helping users track and manage their daily expenses effectively.
 
 ## Features
 
@@ -8,21 +8,12 @@ The Personal Expense Tracker repository contains an Android application and a we
 - Categorize expenses to gain a clear overview.
 - View detailed expense reports and charts.
 - Secure login and registration system.
-- Synchronize data between Android and Web platforms.
-- Set budget limits for each expense category and receive alerts when nearing the limit.
-- Set financial goals and track progress to achieve them.
+- Custom categories for expenses and incomes.
 
-## Android Version
+## Web Application
 
-The Android version of the Expense Tracker is built using Java, Kotlin and Android Studio. It offers a user-friendly interface to manage expenses on the go. The Android app communicates with a backend server to store and retrieve expense data.
-
-<!--![Android App](android_app.png)-->
-
-## Website Version
-
-The website version of the Expense Tracker will be developed using the MERN stack (MongoDB, Express.js, React.js, and Node.js). It will provide the same features as the Android app but will be accessible from any modern web browser. The web app will communicate with the same backend server as the Android app.
-
-Deployed at: https://expense-tracker.ashishsaranshakya.com
+- Deployed at: https://expense-tracker.ashishsaranshakya.com
+- API Documentation: <a href="/API-Doc.md">API Documentation</a>
 
 <p align="center">
   <img alt="Light" src="/docs/webDashboard.png" width="45%">
@@ -42,29 +33,12 @@ Deployed at: https://expense-tracker.ashishsaranshakya.com
 
 ## Installation
 
-### Android App
-
-**Note:** The Android version is under development and will be available soon.
-
-1. Clone the repository to your local machine.
-2. Open the Android project in Android Studio.
-3. Build and run the app on an Android device or emulator.
-4. The app will launch, and you can start tracking your expenses.
-
-### Website (MERN Stack)
-
-**Note:** The website version is under development and is available in beta.
-
 1. Clone the repository to your local machine.
 2. Set up MongoDB and Node.js on your server or use a cloud-based solution.
 3. Navigate to the website's root directory.
 4. Install the required dependencies by running `npm install` in the terminal.
 5. Start the development server with `npm start`.
 6. Open your web browser and access the website to register or log in.
-
-## Backend Server
-
-Both the Android and Website versions of the Expense Tracker will use a common backend server. The server is built using Node.js and will utilize MongoDB as the database for seamless synchronization between platforms.
 
 ## Contributing
 
