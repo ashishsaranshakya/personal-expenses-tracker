@@ -1,7 +1,5 @@
 # Expense Tracker API Documentation
 
-## User Endpoints
-
 ### Authentication
 
 - **Google Login**
