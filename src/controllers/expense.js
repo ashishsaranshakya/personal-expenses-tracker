@@ -83,7 +83,7 @@ export const updateExpense = async (req, res, next) => {
         if (expense.userId.toString() !== req.user.id) return next(createAPIError(403, false, "Unauthorized"));
 
         const user = await User.findById(req.user.id);
-        const { amount, date, categoryId, description } = req.body;
+        const { amount, date, category: categoryId, description } = req.body;
         user.balance += expense.amount;
         user.balance -= amount;
 

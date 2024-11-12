@@ -44,7 +44,7 @@ function Item({
     }
 
     const handleInput = name => e => {
-        setData({...data, [name]: e.target.value})
+        setData({ ...data, [name]: e.target.value })
     }
 
     return (
@@ -142,7 +142,7 @@ function Item({
                                 </div>
                                 <div className="text-3">
                                     <p>
-                                        {categoryIcon} {data.categoryName}
+                                        {categoryIcon} {category}
                                     </p>
                                 </div>
                             </div>

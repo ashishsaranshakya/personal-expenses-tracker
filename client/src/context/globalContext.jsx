@@ -14,6 +14,7 @@ export const GlobalProvider = ({children}) => {
     const [incomeCategories, setIncomeCategories] = useState(null);
     const [expenses, setExpenses] = useState([]);
     const [expenseCategories, setExpenseCategories] = useState(null);
+    const [transactionHistory, setTransactionHistory] = useState([]);
     const [error, setError] = useState(null);
 
     // auth
@@ -214,7 +215,7 @@ export const GlobalProvider = ({children}) => {
         return totalIncome() - totalExpenses()
     }
 
-    const transactionHistory = (limit) => {
+    const calculateTransactionHistory = (limit) => {
         const tempHistory = [...incomes, ...expenses]
         tempHistory.sort((a, b) => {
             return new Date(b.date) - new Date(a.date)
@@ -226,14 +227,24 @@ export const GlobalProvider = ({children}) => {
         return tempHistory;
     }
 
+    useEffect(() => {
+        setTransactionHistory(calculateTransactionHistory());
+        console.log('transaction history updated')
+    }, [incomes, expenses]);
+
+    useEffect(() => {
+        console.log(transactionHistory)
+    }, [transactionHistory]);
+
     // update item
     const updateItem = async (id, data, type) => {
         if (type === 'expense') {
-            updateExpense(id, data)
+            await updateExpense(id, data)
         }
         else {
-            updateIncome(id, data)
+            await updateIncome(id, data)
         }
+        setTransactionHistory(calculateTransactionHistory());
     }
 
     const updateExpense = async (id, data) => {

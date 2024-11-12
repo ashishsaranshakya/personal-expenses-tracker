@@ -83,7 +83,7 @@ export const updateIncome = async (req, res, next) => {
         if (income.userId.toString() !== req.user.id) return next(createAPIError(403, false, "Unauthorized"));
 
         const user = await User.findById(req.user.id);
-        const { amount, date, categoryId, description } = req.body;
+        const { amount, date, category: categoryId, description } = req.body;
         user.balance -= income.amount;
         user.balance += Number(amount);
 

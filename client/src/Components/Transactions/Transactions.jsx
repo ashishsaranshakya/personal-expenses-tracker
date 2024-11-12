@@ -11,7 +11,6 @@ function Income() {
         getIncomes();
         getExpenses();
     }, []);
-    const history = transactionHistory();
 
     return (
         <Board>
@@ -20,7 +19,7 @@ function Income() {
                 <h2 className="total-income">Balance: <span>₹ {totalBalance()}</span></h2>
                 <div className="income-content">
                     <div className="incomes">
-                        {history.map((income) => {
+                        {transactionHistory.map((income) => {
                             const {_id, amount, date, category, categoryId, description, type} = income;
                             return <Item
                                 key={_id}
