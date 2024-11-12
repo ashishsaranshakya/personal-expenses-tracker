@@ -229,12 +229,7 @@ export const GlobalProvider = ({children}) => {
 
     useEffect(() => {
         setTransactionHistory(calculateTransactionHistory());
-        console.log('transaction history updated')
     }, [incomes, expenses]);
-
-    useEffect(() => {
-        console.log(transactionHistory)
-    }, [transactionHistory]);
 
     // update item
     const updateItem = async (id, data, type) => {
