@@ -14,6 +14,7 @@ The Personal Expense Tracker repository contains an full stack web application d
 
 - Deployed at: https://expense-tracker.ashishsaranshakya.com
 - API Documentation: <a href="/API-Doc.md">API Documentation</a>
+- Alternate Spring Boot implementation: [ashishsaranshakya/personal-expenses-tracker-springboot](https://github.com/ashishsaranshakya/personal-expenses-tracker-springboot)
 
 <p align="center">
   <img alt="Light" src="/docs/webDashboard.png" width="45%">
@@ -40,14 +41,10 @@ The Personal Expense Tracker repository contains an full stack web application d
 5. Start the development server with `npm start`.
 6. Open your web browser and access the website to register or log in.
 
-## Contributing
-
-Contributions are welcome! If you find any bugs or want to add new features, feel free to open an issue or submit a pull request.
-
 ## License
 
 ```
-Copyright 2020 - 2023  Ashish Saran Shakya
+Copyright 2020 - 2025  Ashish Saran Shakya
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
