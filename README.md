@@ -1,6 +1,6 @@
 # Personal Expense Tracker Monorepo
 
-This repository contains the expense tracker applications organized as a monorepo. The React frontend at the top level, the Express backend under `express/` and a Spring Boot backend under `springboot/`.
+This repository contains the expense tracker applications organized as a monorepo. The React frontend under `client/`, the Express backend under `express/` and a Spring Boot backend under `springboot/`.
 
 ## Features
 
