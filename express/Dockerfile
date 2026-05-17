@@ -16,15 +16,15 @@ RUN npm run build
 
 FROM node:18-bullseye
 
-WORKDIR /app
+WORKDIR /app/express
 
-COPY ./package*.json ./
+COPY ./express/package*.json ./
 RUN npm install
 
-COPY ./src ./src
-COPY ./index.js ./
-COPY ./.env ./
-COPY --from=client-build /app/client/dist ./client/dist
+COPY ./express/src ./src
+COPY ./express/index.js ./
+COPY ./express/.env ./
+COPY --from=client-build /app/client/dist ../client/dist
 
 EXPOSE 3000
 CMD ["npm", "run", "prod"]

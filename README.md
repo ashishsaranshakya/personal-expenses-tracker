@@ -1,6 +1,6 @@
-# Personal Expense Tracker
+# Personal Expense Tracker Monorepo
 
-The Personal Expense Tracker repository contains an full stack web application developed using the MERN Stack, aimed at helping users track and manage their daily expenses effectively.
+This repository contains the expense tracker applications organized as a monorepo. The React frontend at the top level, the Express backend under `express/` and a Spring Boot backend under `springboot/`.
 
 ## Features
 
@@ -9,6 +9,12 @@ The Personal Expense Tracker repository contains an full stack web application d
 - View detailed expense reports and charts.
 - Secure login and registration system.
 - Custom categories for expenses and incomes.
+
+## Repository Layout
+
+- `client/` React frontend
+- `express/` Express API and Node.js backend
+- `springboot/` Spring Boot API implementation
 
 ## Web Application
 
@@ -31,23 +37,10 @@ The Personal Expense Tracker repository contains an full stack web application d
   <em>Incomes</em> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <em>Expenses</em>
 </p>
 
-## Installation
-
-1. Clone the repository to your local machine.
-2. Set up MongoDB and Node.js on your server or use a cloud-based solution.
-3. Navigate to the website's root directory.
-4. Install the required dependencies by running `npm install` in the terminal.
-5. Start the development server with `npm start`.
-6. Open your web browser and access the website to register or log in.
-
-## Contributing
-
-Contributions are welcome! If you find any bugs or want to add new features, feel free to open an issue or submit a pull request.
-
 ## License
 
 ```
-Copyright 2020 - 2023  Ashish Saran Shakya
+Copyright 2020 - 2026  Ashish Saran Shakya
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
